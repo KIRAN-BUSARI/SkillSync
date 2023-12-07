@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ImEye, ImEyeBlocked } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 import { BsPersonCircle } from "react-icons/bs";
 import { toast } from "react-hot-toast";
@@ -11,6 +12,15 @@ const Signup = () => {
 
     const [previewImage, setImagePreview] = useState("");
 
+    const [pass, setPass] = useState(true);
+    const handlePass = () => {
+        setPass(!pass);
+    }
+
+    const [cpass, setCpass] = useState(true);
+    const handleCpass = () => {
+        setCpass(!cpass);
+    }
     // for user input
     const [signupData, setSignupData] = useState({
         fullName: "",
@@ -88,7 +98,7 @@ const Signup = () => {
         }
 
         // Password and confirmPassword validation
-        if (signupData.password != signupData.confirmPassword) {
+        if (signupData.password !== signupData.confirmPassword) {
             toast.error(
                 "Password and Confirm Password doesn't Match, Please Try again.."
             );
@@ -135,119 +145,140 @@ const Signup = () => {
     };
 
     return (
-            <div className="flex items-center justify-center h-[80vh]">
-                <form
-                    onSubmit={createNewAccount}
-                    className="flex flex-col justify-center gap-3 rounded-lg p-4 w-96 shadow-[0_0_10px_black]"
-                >
-                    <h1 className="text-center text-2xl font-bold text-[#0095ff]">
-                        Registration Page
-                    </h1>
+        <div className="flex items-center justify-center h-[80vh]">
+            <form
+                onSubmit={createNewAccount}
+                className="flex flex-col justify-center gap-3 rounded-lg p-4 w-96 shadow-[0_0_10px_black]"
+            >
+                <h1 className="text-center text-2xl font-bold text-orange-500">
+                    Registration Page
+                </h1>
 
-                    {/* input for image file */}
-                    <label className="cursor-pointer" htmlFor="image_uploads">
-                        {previewImage ? (
-                            <img
-                                className="w-24 h-24 rounded-full m-auto text-transparent"
-                                src={previewImage}
-                                alt="preview_image"
-                            />
-                        ) : (
-                            <BsPersonCircle className="w-24 h-24 rounded-full m-auto" />
-                        )}
+                {/* input for image file */}
+                <label className="cursor-pointer" htmlFor="image_uploads">
+                    {previewImage ? (
+                        <img
+                            className="w-24 h-24 rounded-full m-auto text-transparent"
+                            src={previewImage}
+                            alt="preview_image"
+                        />
+                    ) : (
+                        <BsPersonCircle className="w-24 h-24 rounded-full m-auto" />
+                    )}
+                </label>
+                <input
+                    onChange={getImage}
+                    className="hidden"
+                    type="file"
+                    id="image_uploads"
+                    name="image_uploads"
+                    accept=".jpg, .jpeg, .png"
+                />
+
+                {/* input for name */}
+                <div className="flex flex-col gap-1">
+                    <label className="font-semibold text-orange-500" htmlFor="fullName">
+                        Name
                     </label>
                     <input
-                        onChange={getImage}
-                        className="hidden"
-                        type="file"
-                        id="image_uploads"
-                        name="image_uploads"
-                        accept=".jpg, .jpeg, .png"
+                        required
+                        type="name"
+                        name="fullName"
+                        id="fullName"
+                        placeholder="Enter your name"
+                        className="bg-transparent px-2 py-1 border text-black"
+                        value={signupData.fullName}
+                        onChange={handleUserInput}
                     />
+                </div>
 
-                    {/* input for name */}
-                    <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[#0095ff]" htmlFor="fullName">
-                            Name
-                        </label>
+                {/* input for email */}
+                <div className="flex flex-col gap-1">
+                    <label className="font-semibold text-orange-500" htmlFor="email">
+                        Email
+                    </label>
+                    <input
+                        required
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        className="bg-transparent px-2 py-1 border text-black"
+                        value={signupData.email}
+                        onChange={handleUserInput}
+                    />
+                </div>
+
+                {/* input for password */}
+                <div className="flex flex-col gap-1">
+                    <label className="font-semibold text-orange-500" htmlFor="password">
+                        Password
+                    </label>
+                    <div className="flex items-center">
                         <input
                             required
-                            type="name"
-                            name="fullName"
-                            id="fullName"
-                            placeholder="Enter your name"
-                            className="bg-transparent px-2 py-1 border text-black"
-                            value={signupData.fullName}
-                            onChange={handleUserInput}
-                        />
-                    </div>
-
-                    {/* input for email */}
-                    <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[#0095ff]" htmlFor="email">
-                            Email
-                        </label>
-                        <input
-                            required
-                            type="email"
-                            name="email"
-                            id="email"
-                            placeholder="Enter your email"
-                            className="bg-transparent px-2 py-1 border text-black"
-                            value={signupData.email}
-                            onChange={handleUserInput}
-                        />
-                    </div>
-
-                    {/* input for password */}
-                    <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[#0095ff]" htmlFor="password">
-                            Password
-                        </label>
-                        <input
-                            required
-                            type="password"
+                            type={pass ? "password" : "text"}
                             name="password"
                             id="password"
                             placeholder="Enter your password"
-                            className="bg-transparent px-2 py-1 border text-black"
+                            className="bg-transparent px-2 py-1 max-w-[100%] w-96 border text-black"
                             value={signupData.password}
                             onChange={handleUserInput}
-                        />
+                            />
+                        <div className="-ml-7 cursor-pointer">
+                            {pass ? (
+                                <ImEye onClick={handlePass} />
+                                ) : (
+                                    <ImEyeBlocked onClick={handlePass} />
+                                    )}
+                        </div>
                     </div>
-                    {/* Input for Confirm Password */}
-                    <div className="flex flex-col gap-1">
-                        <label className="font-semibold text-[#0095ff]" htmlFor="password">
-                            Confirm Password
-                        </label>
+                </div>
+                {/* Input for Confirm Password */}
+                <div className="flex flex-col gap-1">
+                    <label
+                        className="font-semibold text-orange-500"
+                        htmlFor="confirmPassword"
+                    >
+                        Confirm Password
+                    </label>
+                    <div className="flex items-center">
                         <input
                             required
-                            type="password"
-                            name="password"
-                            id="password"
+                            type={cpass ? "password" : "text"}
+                            name="confirmPassword"
+                            id="confirmPassword"
                             placeholder="Confirm your password"
-                            className="bg-transparent px-2 py-1 border text-black"
+                            className="bg-transparent px-2 py-1 max-w-[100%] w-96 border text-black"
                             value={signupData.confirmPassword}
                             onChange={handleUserInput}
-                        />
+                            />
+                        <div className="-ml-7 cursor-pointer">
+                            {cpass ? (
+                                <ImEye onClick={handleCpass} />
+                                ) : (
+                                    <ImEyeBlocked onClick={handleCpass} />
+                                    )}
+                        </div>
                     </div>
+                </div>
 
-                    {/* registration button */}
-                    <button
-                        className="w-full bg-[#0095ff] text-white hover:bg-[#fff] hover:border hover:border-[#0095ff] hover:text-[#0095ff] transition-all ease-in-out duration-300 rounded-sm py-2 font-semibold text-lg cursor-pointer"
-                        type="submit"
-                    >
-                        Create Account
-                    </button>
+                {/* registration button */}
+                <button
+                    className="w-full bg-[#0095ff] text-white hover:bg-[#fff] hover:border hover:border-[#0095ff] hover:text-[#0095ff] transition-all ease-in-out duration-300 rounded-sm py-2 font-semibold text-lg cursor-pointer"
+                    type="submit"
+                >
+                    Create Account
+                </button>
 
-                    <p className="text-center">
-                        Already have an account ?{" "}
-                        <Link to={"/login"} className="link text-[#0095ff] cursor-pointer">
-                            Login
-                        </Link>
-                    </p>
-                </form>
-            </div>
+                <p className="text-center">
+                    Already have an account ?{" "}
+                    <Link to={"/login"} className="link text-[#0095ff] cursor-pointer hover:underline">
+                        Login
+                    </Link>
+                </p>
+            </form>
+        </div>
     );
 };
 
