@@ -1,4 +1,5 @@
 import React from "react";
+// import logo from "../../Assests/logo.png"
 import { Link, NavLink } from "react-router-dom";
 function Header() {
     return (
@@ -7,9 +8,9 @@ function Header() {
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <Link to="/" className="flex items-center">
                         <img
-                            src="https://alexharkness.com/wp-content/uploads/2020/06/logo-2.png"
-                            className="mr-3 h-12"
+                            src={"src/Assests/Logo2.png"}
                             alt="Logo"
+                            className="mr-3 h-[60px]"
                         />
                     </Link>
                     <div className="flex items-center lg:order-2">
