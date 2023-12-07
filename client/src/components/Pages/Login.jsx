@@ -93,7 +93,7 @@ const Login = () => {
                             name="password"
                             id="password"
                             placeholder="Enter your password"
-                            className="bg-transparent px-2 py-1 max-w-[100%] w-96 border border-orange-500 text-black"
+                            className="bg-transparent px-2 py-1 max-w-full w-96 border border-orange-500 text-black"
                             value={loginData.password}
                             onChange={handleUserInput}
                         />

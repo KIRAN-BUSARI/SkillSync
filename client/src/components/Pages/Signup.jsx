@@ -221,7 +221,7 @@ const Signup = () => {
                             name="password"
                             id="password"
                             placeholder="Enter your password"
-                            className="bg-transparent px-2 py-1 max-w-[100%] w-96 border text-black"
+                            className="bg-transparent px-2 py-1 max-w-full w-96 border text-black"
                             value={signupData.password}
                             onChange={handleUserInput}
                             />
@@ -249,7 +249,7 @@ const Signup = () => {
                             name="confirmPassword"
                             id="confirmPassword"
                             placeholder="Confirm your password"
-                            className="bg-transparent px-2 py-1 max-w-[100%] w-96 border text-black"
+                            className="bg-transparent px-2 py-1 max-w-full w-96 border text-black"
                             value={signupData.confirmPassword}
                             onChange={handleUserInput}
                             />
